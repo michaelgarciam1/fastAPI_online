@@ -15,9 +15,8 @@
     <p id="1"></p>
 
     <script>
-      const serverIP = "https://fastapi-monumentos.onrender.com";
-      console.log(serverIP+" , "+"\n");
-      const serverPort = "10000";
+      const serverIP = "127.0.0.1";
+      const serverPort = "8000";
       $.getJSON(
         "https://api.ipify.org?format=jsonp&callback=?",
         function (data) {
@@ -25,7 +24,7 @@
         }
       );
       function mostrarPorAño() {
-        $.get(`https://${serverIP}:${serverPort}/mostrar_anyo`, function (data) {
+        $.get(`http://${serverIP}:${serverPort}/mostrar_anyo`, function (data) {
           console.log(data);
           let json = JSON.parse(data);
           // document.getElementById("1").innerHTML=json;
@@ -47,7 +46,7 @@
 
       function mostrarNaturales() {
         $.get(
-          `https://${serverIP}:${serverPort}/mostrar_naturales`,
+          `http://${serverIP}:${serverPort}/mostrar_naturales`,
           function (data) {
             var parquesNaturales = JSON.parse(data);
             var html = "<h2>Parques Naturales</h2><ul>";
@@ -62,7 +61,7 @@
 
       function mostrarNumeroPatrimonios() {
         $.get(
-          `https://${serverIP}:${serverPort}/mostrar_Numpatrimonios`,
+          `http://${serverIP}:${serverPort}/mostrar_Numpatrimonios`,
           function (data) {
             console.log(data);
             var json = JSON.parse(data);
