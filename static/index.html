@@ -16,9 +16,14 @@
 
     <script>
       const serverIP = "https://fastapi-monumentos.onrender.com/";
-      console.log(serverIP);
+      console.log(serverIP+" , "+"\n");
       const serverPort = "10000";
-
+      $.getJSON(
+        "https://api.ipify.org?format=jsonp&callback=?",
+        function (data) {
+          console.log(("#response").html(JSON.stringify(data, null, 2)));
+        }
+      );
       function mostrarPorAño() {
         $.get(`http://${serverIP}:${serverPort}/mostrar_anyo`, function (data) {
           console.log(data);
@@ -44,7 +49,7 @@
         $.get(
           `http://${serverIP}:${serverPort}/mostrar_naturales`,
           function (data) {
-            var parquesNaturales= JSON.parse(data);
+            var parquesNaturales = JSON.parse(data);
             var html = "<h2>Parques Naturales</h2><ul>";
             parquesNaturales.naturales.forEach(function (parque) {
               html += "<li>" + parque + "</li>";
@@ -60,8 +65,9 @@
           `http://${serverIP}:${serverPort}/mostrar_Numpatrimonios`,
           function (data) {
             console.log(data);
-            var json= JSON.parse(data);
-            var html="Hay "+json["numero_patrimonios"]+ " de patrimonios en España";
+            var json = JSON.parse(data);
+            var html =
+              "Hay " + json["numero_patrimonios"] + " de patrimonios en España";
             document.getElementById("1").innerHTML = html;
           }
         );
