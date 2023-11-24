@@ -75,6 +75,7 @@
         try {
           const response = await fetch(`/mostrar_anyo/`);
           const json = await response.json();
+          json = JSON.parse(json);
           console.log(json);
           let html = "";
           for (var año in json) {
