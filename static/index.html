@@ -19,56 +19,36 @@
       console.log(serverIP);
       const serverPort = "8000";
 
-      // function mostrarPorAño() {
-      //   $.get(
-      //     `https://${serverIP}:${serverPort}/mostrar_anyo`,
-      //     function (data) {
-      //       console.log(data);
-      //       let json = JSON.parse(data);
-      //       // document.getElementById("1").innerHTML=json;
-      //       console.log(json);
-      //       let html = "";
-      //       for (var año in json) {
-      //         html += "<h2>" + año + "</h2>";
-      //         html += "<ul>";
 
-      //         json[año].forEach(function (sitio) {
-      //           html += "<li>" + sitio + "</li>";
-      //         });
-
-      //         html += "</ul>";
-      //       }
-      //       document.getElementById("1").innerHTML = html;
-      //     }
-      //   );
-      // }
-
-      function mostrarNaturales() {
-        $.get(
-          `https://${serverIP}:${serverPort}/mostrar_naturales`,
-          function (data) {
-            var parquesNaturales = JSON.parse(data);
-            var html = "<h2>Parques Naturales</h2><ul>";
+      async function mostrarNaturales() {
+        try {
+          const response = await fetch(`/mostrar_naturales/`);
+          const data = await response.json();
+          var parquesNaturales = JSON.parse(data);
+          var html = "<h2>Parques Naturales</h2><ul>";
             parquesNaturales.naturales.forEach(function (parque) {
               html += "<li>" + parque + "</li>";
             });
             html += "</ul>";
             document.getElementById("1").innerHTML = html;
-          }
-        );
+        } catch (error) {
+          console.error("Error al obtener conteo:", error);
+        }
       }
 
-      function mostrarNumeroPatrimonios() {
-        $.get(
-          `https://${serverIP}:${serverPort}/mostrar_Numpatrimonios`,
-          function (data) {
-            console.log(data);
-            var json = JSON.parse(data);
-            var html =
-              "Hay " + json["numero_patrimonios"] + " de patrimonios en España";
-            document.getElementById("1").innerHTML = html;
-          }
-        );
+      
+      async function mostrarNumeroPatrimonios() {
+        try {
+          const response = await fetch(`/mostrar_Numpatrimonios/`);
+          console.log(response);
+          const data = await response.json();
+          var json = JSON.parse(data);
+          var html =
+            "Hay " + json["numero_patrimonios"] + " de patrimonios en España";
+          document.getElementById("1").innerHTML = html;
+        } catch (error) {
+          console.error("Error al obtener conteo:", error);
+        }
       }
 
       async function mostrarPorAño() {
@@ -77,8 +57,6 @@
           console.log(response);
           const algo = await response.json();
           var json = JSON.parse(algo);
-          // json = JSON.parse(json);
-          console.log(json);
           let html = "";
           for (var año in json) {
             html += "<h2>" + año + "</h2>";
