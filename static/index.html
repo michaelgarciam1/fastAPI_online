@@ -74,20 +74,26 @@
       async function mostrarPorAño() {
         try {
           const response = await fetch(`/mostrar_anyo/`);
-          const json = await response.json();
-          json = JSON.parse(json);
-          console.log(json);
-          let html = "";
-          for (var año in json) {
-            html += "<h2>" + año + "</h2>";
-            html += "<ul>";
-
-            json[año].forEach(function (sitio) {
-              html += "<li>" + sitio + "</li>";
-            });
-
-            html += "</ul>";
+          if (!response.ok) {
+            throw new Error("Error en la solicitud");
           }
+
+          const json = await response.json();
+
+          let html = "";
+          for (const año in json) {
+            if (json.hasOwnProperty(año)) {
+              html += `<h2>${año}</h2>`;
+              html += "<ul>";
+
+              json[año].forEach(function (sitio) {
+                html += `<li>${sitio}</li>`;
+              });
+
+              html += "</ul>";
+            }
+          }
+
           document.getElementById("1").innerHTML = html;
         } catch (error) {
           console.error("Error al obtener conteo:", error);
