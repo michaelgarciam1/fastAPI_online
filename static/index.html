@@ -25,7 +25,7 @@
         }
       );
       function mostrarPorAño() {
-        $.get(`http://${serverIP}:${serverPort}/mostrar_anyo`, function (data) {
+        $.get(`https://${serverIP}:${serverPort}/mostrar_anyo`, function (data) {
           console.log(data);
           let json = JSON.parse(data);
           // document.getElementById("1").innerHTML=json;
@@ -47,7 +47,7 @@
 
       function mostrarNaturales() {
         $.get(
-          `http://${serverIP}:${serverPort}/mostrar_naturales`,
+          `https://${serverIP}:${serverPort}/mostrar_naturales`,
           function (data) {
             var parquesNaturales = JSON.parse(data);
             var html = "<h2>Parques Naturales</h2><ul>";
@@ -62,7 +62,7 @@
 
       function mostrarNumeroPatrimonios() {
         $.get(
-          `http://${serverIP}:${serverPort}/mostrar_Numpatrimonios`,
+          `https://${serverIP}:${serverPort}/mostrar_Numpatrimonios`,
           function (data) {
             console.log(data);
             var json = JSON.parse(data);
