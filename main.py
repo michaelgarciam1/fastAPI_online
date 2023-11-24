@@ -4,7 +4,7 @@ import requests
 import json
 import uvicorn
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+# from fastapi.middleware.cors import CORSMiddleware
 
 # (mostrar todos los de un año)
 app = FastAPI()
@@ -58,13 +58,13 @@ def numero_patrimonios():
 
 
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # o especifica tus dominios permitidos
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=["*"],  # o especifica tus dominios permitidos
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 
 
 url="https://services1.arcgis.com/nCKYwcSONQTkPA4K/arcgis/rest/services/Patrimonio_de_la_unesco/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json"

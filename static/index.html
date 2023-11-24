@@ -18,26 +18,29 @@
       const serverIP = "fastapi-monumentos.onrender.com";
       console.log(serverIP);
       const serverPort = "8000";
-  
+
       function mostrarPorAño() {
-        $.get(`https://${serverIP}:${serverPort}/mostrar_anyo`, function (data) {
-          console.log(data);
-          let json = JSON.parse(data);
-          // document.getElementById("1").innerHTML=json;
-          console.log(json);
-          let html = "";
-          for (var año in json) {
-            html += "<h2>" + año + "</h2>";
-            html += "<ul>";
+        $.get(
+          `https://${serverIP}:${serverPort}/mostrar_anyo`,
+          function (data) {
+            console.log(data);
+            let json = JSON.parse(data);
+            // document.getElementById("1").innerHTML=json;
+            console.log(json);
+            let html = "";
+            for (var año in json) {
+              html += "<h2>" + año + "</h2>";
+              html += "<ul>";
 
-            json[año].forEach(function (sitio) {
-              html += "<li>" + sitio + "</li>";
-            });
+              json[año].forEach(function (sitio) {
+                html += "<li>" + sitio + "</li>";
+              });
 
-            html += "</ul>";
+              html += "</ul>";
+            }
+            document.getElementById("1").innerHTML = html;
           }
-          document.getElementById("1").innerHTML = html;
-        });
+        );
       }
 
       function mostrarNaturales() {
@@ -66,6 +69,27 @@
             document.getElementById("1").innerHTML = html;
           }
         );
+      }
+
+      async function mostrarPorAño() {
+        try {
+          const response = await fetch(`/mostrar_anyo/`);
+          const json = await response.json();
+          let html = "";
+          for (var año in json) {
+            html += "<h2>" + año + "</h2>";
+            html += "<ul>";
+
+            json[año].forEach(function (sitio) {
+              html += "<li>" + sitio + "</li>";
+            });
+
+            html += "</ul>";
+          }
+          document.getElementById("1").innerHTML = html;
+        } catch (error) {
+          console.error("Error al obtener conteo:", error);
+        }
       }
     </script>
   </body>
