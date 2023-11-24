@@ -75,7 +75,7 @@
         try {
           const response = await fetch(`/mostrar_anyo/`);
           console.log(response);
-          const json = await response.json();
+          const json = await JSON.parse(response);
           // json = JSON.parse(json);
           console.log(json);
           let html = "";
