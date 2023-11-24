@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <title>FastAPI Example</title>
+  </head>
+  <body>
+    <button onclick="mostrarPorAño()">Mostrar por Año</button>
+    <button onclick="mostrarNaturales()">Mostrar Naturales</button>
+    <button onclick="mostrarNumeroPatrimonios()">
+      Mostrar Número de Patrimonios
+    </button>
+    <p id="1"></p>
+
+    <script>
+      const serverIP = "localhost";
+      const serverPort = "8000";
+
+      function mostrarPorAño() {
+        $.get(`http://${serverIP}:${serverPort}/mostrar_anyo`, function (data) {
+          console.log(data);
+          let json = JSON.parse(data);
+          // document.getElementById("1").innerHTML=json;
+          console.log(json);
+          let html = "";
+          for (var año in json) {
+            html += "<h2>" + año + "</h2>";
+            html += "<ul>";
+
+            json[año].forEach(function (sitio) {
+              html += "<li>" + sitio + "</li>";
+            });
+
+            html += "</ul>";
+          }
+          document.getElementById("1").innerHTML = html;
+        });
+      }
+
+      function mostrarNaturales() {
+        $.get(
+          `http://${serverIP}:${serverPort}/mostrar_naturales`,
+          function (data) {
+            var parquesNaturales= JSON.parse(data);
+            var html = "<h2>Parques Naturales</h2><ul>";
+            parquesNaturales.naturales.forEach(function (parque) {
+              html += "<li>" + parque + "</li>";
+            });
+            html += "</ul>";
+            document.getElementById("1").innerHTML = html;
+          }
+        );
+      }
+
+      function mostrarNumeroPatrimonios() {
+        $.get(
+          `http://${serverIP}:${serverPort}/mostrar_Numpatrimonios`,
+          function (data) {
+            console.log(data);
+            var json= JSON.parse(data);
+            var html="Hay "+json["numero_patrimonios"]+ " de patrimonios en España";
+            document.getElementById("1").innerHTML = html;
+          }
+        );
+      }
+    </script>
+  </body>
+</html>
